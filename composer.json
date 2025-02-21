@@ -1,0 +1,56 @@
+{
+    "name": "ferdous/php-redis-sentinel",
+    "description": "This package is for Laravel PHP Redis with Sentinel Support. The common problem we face when using Redis-Sentinel cluster, once master moves, we keep getting error like 'You can not write to a ReadOnly slave' ",
+    "type": "library",
+    "homepage": "https://github.com/ferdousulhaque/php-redis-sentinel",
+    "keywords": [
+        "php",
+        "laravel",
+        "redis",
+        "php-redis",
+        "redis-sentinel",
+        "sentinel"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "A S Md Ferdousul Haque",
+            "email": "ferdousul.haque@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Ferdous\\PhpRedis\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ferdous\\PhpRedis\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.0",
+        "orchestra/testbench": "^8.0|^9.0",
+        "phpunit/phpunit": "^10.0|^11.0",
+        "larastan/larastan": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ferdous\\PhpRedis\\Providers\\SentinelMasterConnectionProvider"
+            ],
+            "aliases": {
+                "SentinelService": "Ferdous\\PhpRedis\\Facades\\PhpSentinel"
+            }
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest"
+    }
+}
