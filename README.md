@@ -9,6 +9,7 @@ When your API have write operation to Redis, then add the following middleware `
 
 ```php
 use Illuminate\Support\Facades\Route;
+use Ferdous\PhpRedis\Connection\MasterConnection;
 
 Route::middleware(['auto-redis-master'])->group(function () {
     Route::get('/redis-write-api', function () {
