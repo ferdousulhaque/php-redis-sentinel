@@ -5,9 +5,35 @@ For this reason, I worked on setting the Redis master IP Dynamically with each r
 
 ## Usages
 
-If you are using `api` then in the middleware for `RateLimiter`, disable it and enable the new `ResilientRateLimiter` as middleware.
+When your API have write operation to Redis, then add the following middleware `auto-redis-master` like this:
 
-For internal application, just register the new provider for `Redis`
+```php
+use Illuminate\Support\Facades\Route;
+
+Route::middleware(['auto-redis-master'])->group(function () {
+    Route::get('/redis-write-api', function () {
+        // Write to Redis Master
+    });
+});
+```
+
+If you only want to get the current master redis information and will connect based on your need.abstract 
+
+```php
+use App\Services\MyCustomService;
+
+class SomeController
+{
+    protected $masterConnection;
+
+    public function __construct(MasterConnection $masterConnection)
+    {
+        dd($this->masterConnection->getActiveIpPort());
+    }
+}
+```
+
+
 
 ## Contributors
 
