@@ -9,7 +9,6 @@ When your API have write operation to Redis, then add the following middleware `
 
 ```php
 use Illuminate\Support\Facades\Route;
-use Ferdous\PhpRedis\Connection\MasterConnection;
 
 Route::middleware(['auto-redis-master'])->group(function () {
     Route::get('/redis-write-api', function () {
@@ -22,6 +21,7 @@ If you only want to get the current master redis information and will connect ba
 
 ```php
 use App\Services\MyCustomService;
+use Ferdous\PhpRedis\Connection\MasterConnection;
 
 class SomeController
 {
