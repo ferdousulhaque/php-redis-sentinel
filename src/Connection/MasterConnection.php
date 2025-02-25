@@ -34,7 +34,6 @@ class MasterConnection
                 if ($master) {
                     return ['host' => $master[0], 'port' => $master[1]];
                 }
-                FlushOut::now();
             }
         } catch (\Exception $ex) {
             // Unable to determine the master
