@@ -31,8 +31,7 @@
         }
     },
     "require": {
-        "php": "^8.1",
-        "ext-redis": "*"
+        "php": "^8.1"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
@@ -53,5 +52,10 @@
     },
     "scripts": {
         "test": "vendor/bin/pest"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
