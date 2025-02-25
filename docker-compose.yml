@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
     redis-master:
         image: redis:latest
@@ -7,7 +5,6 @@ services:
         command: ["redis-server", "/etc/redis/redis.conf"]
         volumes:
             - ./conf/redis/redis-master.conf:/etc/redis/redis.conf:rw
-#            - ./conf/redis/sentinel.conf:/etc/redis/sentinel.conf:rw
         networks:
             - redis-cluster
 
@@ -19,7 +16,6 @@ services:
             - redis-master
         volumes:
             - ./conf/redis/redis-slave.conf:/etc/redis/redis.conf:rw
-#            - ./conf/redis/sentinel.conf:/etc/redis/sentinel.conf:rw
         networks:
             - redis-cluster
 
@@ -31,13 +27,11 @@ services:
             - redis-master
         volumes:
             - ./conf/redis/redis-slave.conf:/etc/redis/redis.conf:rw
-#            - ./conf/redis/sentinel.conf:/etc/redis/sentinel.conf:rw
         networks:
             - redis-cluster
 
     sentinel-1:
         image: redis:latest
-        restart: always
         container_name: sentinel-1
         command: ["redis-server", "/etc/redis/sentinel.conf", "--sentinel"]
         ports:
@@ -52,68 +46,6 @@ services:
             - "redis-master:host-gateway"
         networks:
             - redis-cluster
-
-
-    sentinel-2:
-        image: redis:latest
-        restart: always
-        container_name: sentinel-2
-        command: ["redis-server", "/etc/redis/sentinel.conf", "--sentinel"]
-        depends_on:
-            - redis-master
-            - redis-slave-1
-            - redis-slave-2
-        volumes:
-            - ./conf/redis/sentinel.conf:/etc/redis/sentinel.conf:rw
-        extra_hosts:
-            - "redis-master:host-gateway"
-        networks:
-            - redis-cluster
-
-    sentinel-3:
-        image: redis:latest
-        restart: always
-        container_name: sentinel-3
-        command: ["redis-server", "/etc/redis/sentinel.conf", "--sentinel"]
-        depends_on:
-            - redis-master
-            - redis-slave-1
-            - redis-slave-2
-        volumes:
-            - ./conf/redis/sentinel.conf:/etc/redis/sentinel.conf:rw
-        extra_hosts:
-            - "redis-master:host-gateway"
-        networks:
-            - redis-cluster
-
-#    php:
-#        build: ./conf/php/
-#        container_name: php-app
-#        volumes:
-#            - ./:/var/www/html
-#        networks:
-#            - redis-cluster
-#        depends_on:
-#            - redis-master
-#            - redis-slave-1
-#            - redis-slave-2
-#
-#    mysql:
-#        image: mysql:latest
-#        container_name: mysql-server
-#        restart: always
-#        environment:
-#            MYSQL_ROOT_PASSWORD: rootpassword
-#            MYSQL_DATABASE: app_db
-#            MYSQL_USER: app_user
-#            MYSQL_PASSWORD: app_password
-#        volumes:
-#            - mysql-data:/var/lib/mysql
-#        networks:
-#            - redis-cluster
-
-#volumes:
-#    mysql-data:
 
 networks:
     redis-cluster:
