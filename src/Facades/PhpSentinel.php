@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ferdous\PhpRedis\Facade;
+namespace Ferdous\PhpRedis\Facades;
 class PhpSentinel
 {
     //TODO:
