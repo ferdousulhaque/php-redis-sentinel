@@ -34,6 +34,8 @@ class SomeController
 }
 ```
 
+## Redi-Search
+## Redis Cluster
 
 
 ## Contributors
